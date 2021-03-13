@@ -13,7 +13,6 @@ using namespace std;
 
 
 
-item_Dict dictionary[n];
 
 /*void init_dict(item_Dict dictionary[n]) {
 	for (int i = 0; i < SIZE_OF_TABLE; i++) {
@@ -37,6 +36,7 @@ string input_word() {
 	cin >> word;
 	return standard_str(word);
 }
+
 unsigned long int hash_func(string str)
 {
 	unsigned long int hash_val = 0;
@@ -62,7 +62,10 @@ int parse_dict(string path, item_Dict dict[n]) {
 		while (!in_file.eof()) {
 			string word_line;
 			getline(in_file, word_line);
-			dict[counter] = parse_line(word_line);
+			item_Dict curr = parse_line(word_line);
+			unsigned long int hash = hash_func(curr.key);
+			if(dictionary[hash] != )
+
 			counter++;
 		}
 		return counter;
@@ -79,18 +82,7 @@ int parse_dict(string path, item_Dict dict[n]) {
 
 
 
-void loadingBar(){
-	cout << "\n\n" << "    Parsing dictionary..." << "\n\n  ";
-	for (int i = 0; i < 26; i++) {
-		cout << char(176);
-	}
-	cout << "\r ";
-	for (int i = 0; i < 26; i++) {
-		cout << char(219);
-		Sleep(500);
-	}
-	cout << "\n\n\    Done\n";
-}
+
 string find_def(string word, item_Dict dict[n],int count_words) {
 	for (int i = 0; i < count_words; i++) {
 		if (word == dict[i].key) {
@@ -104,15 +96,30 @@ string find_def(string word, item_Dict dict[n],int count_words) {
 
 int main()
 {
+	/*
 	string file_name = "dict.txt";
 	string path = fs::current_path().string() + "/" + file_name;
-	//loadingBar();
 	int count_words = parse_dict(path, dictionary);
 	string word = input_word();
-	//cout << word;
 	int start = clock();
 	cout << find_def(word,dictionary,count_words);
 	int end = clock();
-	cout << (end - start) / 1000. << "s" << " " << count_words ;
+	cout << (end - start) / 1000. << "s" << " " << count_words ;*/
+	Hash_table dictionary(SIZE_OF_TABLE);
+
 }
 //176 back; 219
+
+
+/*void loadingBar(){
+	cout << "\n\n" << "    Parsing dictionary..." << "\n\n  ";
+	for (int i = 0; i < 26; i++) {
+		cout << char(176);
+	}
+	cout << "\r ";
+	for (int i = 0; i < 26; i++) {
+		cout << char(219);
+		//Sleep(500);
+	}
+	cout << "\n\n\    Done\n";
+}*/
