@@ -75,7 +75,7 @@ string search(Hash_table dict, string word) {
 	return "Dicitonary doesn`t have this element";
 }
 
-void analyze_table(Hash_table dict) {
+/*void analyze_table(Hash_table dict) {
 	int index_max;
 	int max = 0;
 	for (int i = 0; i < dict.size(); i++) {
@@ -85,21 +85,7 @@ void analyze_table(Hash_table dict) {
 		}
 	}
 	cout << index_max << "has " << max << "elements " << "Last word is: " << dict.table[index_max].get_last().key;
-}
-
-
-
-
-
-/*string find_def(string word, item_table dict[n],int count_words) {
-	for (int i = 0; i < count_words; i++) {
-		if (word == dict[i].key) {
-			return dict[i].value;
-		}
-	}
-	return "Can`t find this word\n";
 }*/
-
 
 
 int main()
@@ -109,14 +95,20 @@ int main()
 	string path = fs::current_path().string() + "/" + file_name;
 	
 	Hash_table dictionary(SIZE_OF_TABLE);
+
 	cout << " Preparing dictionary...\n\n";
 	cout << "======================================\n\n";
-	parse_dict(path, dictionary);
+
+	//parse_dict(path, dictionary);
+
 	cout << " Done\n\n======================================\n\n";
+
 	string word = input_word();
+
 	int start = clock();
 	cout << search(dictionary, standard_str(word));
 	int end = clock();
+
 	cout << (end - start)<< " ms" << endl;
 
 	

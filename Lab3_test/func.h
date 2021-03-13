@@ -28,6 +28,7 @@ public:
 		count_el = 0;
 		empty = true;
 	}
+
 	void push_back(item_table item) {
 		empty = false;
 		list_item* curr = new list_item;
@@ -43,9 +44,11 @@ public:
 		}
 		count_el++;
 	}
+
 	int size() {
 		return count_el;
 	}
+
 	string find_el(string word) {
 		list_item* ptr = start;
 		if (ptr != NULL) {
@@ -59,6 +62,7 @@ public:
 		}
 		return "0";
 	}
+
 	void show_list() {
 		list_item* ptr = start;
 		for (int i = 0; i < count_el; i++) {
@@ -66,9 +70,11 @@ public:
 			ptr = ptr->next;
 		}
 	}
+
 	bool is_empty() {
 		return empty;
 	}
+
 	item_table get_last() {
 		return end->value;
 	}
