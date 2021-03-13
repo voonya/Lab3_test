@@ -1,20 +1,17 @@
-﻿#include <iostream>
+﻿#include "func.h"
+#include <iostream>
 #include <filesystem>
 #include <fstream>
 #include <string>
 #include <ctime>
-#include <windows.h> 
-#include <stdio.h>
+
 
 #define fs filesystem
 #define SIZE_OF_TABLE 100000
 const auto n = 100000;
 using namespace std;
 
-struct item_Dict {
-	string key;
-	string value;
-};
+
 
 item_Dict dictionary[n];
 
@@ -57,6 +54,7 @@ item_Dict parse_line(string line) {
 	w.value = def;
 	return w;
 }
+
 int parse_dict(string path, item_Dict dict[n]) {
 	ifstream in_file(path);
 	if (in_file.is_open()) {
