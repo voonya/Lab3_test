@@ -7,18 +7,13 @@
 
 
 #define fs filesystem
-#define SIZE_OF_TABLE 100000
+#define SIZE_OF_TABLE 2500 //2500
 const auto n = 100000;
 using namespace std;
 
 
 
 
-/*void init_dict(item_Dict dictionary[n]) {
-	for (int i = 0; i < SIZE_OF_TABLE; i++) {
-		dictionary[i] = nullptr;
-	}
-}*/
 
 string standard_str(string str) {
 	string str_cpy = str;
@@ -46,8 +41,8 @@ unsigned long int hash_func(string str)
 	return hash_val % SIZE_OF_TABLE;
 }
 
-item_Dict parse_line(string line) {
-	item_Dict w;
+item_table parse_line(string line) {
+	item_table w;
 	string word = line.substr(0, line.find(";"));
 	string def = line.substr(line.find(";") + 1, string::npos);
 	w.key = word;
@@ -55,71 +50,77 @@ item_Dict parse_line(string line) {
 	return w;
 }
 
-int parse_dict(string path, item_Dict dict[n]) {
+void parse_dict(string path, Hash_table dict) {
 	ifstream in_file(path);
 	if (in_file.is_open()) {
-		int counter = 0;
 		while (!in_file.eof()) {
 			string word_line;
 			getline(in_file, word_line);
-			item_Dict curr = parse_line(word_line);
+			item_table curr = parse_line(word_line);
 			unsigned long int hash = hash_func(curr.key);
-			if(dictionary[hash] != )
-
-			counter++;
+			dict.add_element(hash, curr);
 		}
-		return counter;
 	}
 	else {
 		cout << "Can`t open the file";
 	}
 }
 
+string search(Hash_table dict, string word) {
+	linked_list list = dict.table[hash_func(word)];
+	string def = list.find_el(word);
+	if (def != "0") {
+		return def;
+	}
+	return "Dicitonary doesn`t have this element";
+}
+
+void analyze_table(Hash_table dict) {
+	int index_max;
+	int max = 0;
+	for (int i = 0; i < dict.size(); i++) {
+		if (!dict.table[i].is_empty() && dict.table[i].size() > max) {
+			index_max = i;
+			max = dict.table[i].size();
+		}
+	}
+	cout << index_max << "has " << max << "elements " << "Last word is: " << dict.table[index_max].get_last().key;
+}
 
 
 
 
 
-
-
-
-string find_def(string word, item_Dict dict[n],int count_words) {
+/*string find_def(string word, item_table dict[n],int count_words) {
 	for (int i = 0; i < count_words; i++) {
 		if (word == dict[i].key) {
 			return dict[i].value;
 		}
 	}
 	return "Can`t find this word\n";
-}
+}*/
 
 
 
 int main()
 {
-	/*
+	
 	string file_name = "dict.txt";
 	string path = fs::current_path().string() + "/" + file_name;
-	int count_words = parse_dict(path, dictionary);
+	
+	Hash_table dictionary(SIZE_OF_TABLE);
+	cout << " Preparing dictionary...\n\n";
+	cout << "======================================\n\n";
+	parse_dict(path, dictionary);
+	cout << " Done\n\n======================================\n\n";
 	string word = input_word();
 	int start = clock();
-	cout << find_def(word,dictionary,count_words);
+	cout << search(dictionary, standard_str(word));
 	int end = clock();
-	cout << (end - start) / 1000. << "s" << " " << count_words ;*/
-	Hash_table dictionary(SIZE_OF_TABLE);
+	cout << (end - start)<< " ms" << endl;
 
+	
 }
-//176 back; 219
 
 
-/*void loadingBar(){
-	cout << "\n\n" << "    Parsing dictionary..." << "\n\n  ";
-	for (int i = 0; i < 26; i++) {
-		cout << char(176);
-	}
-	cout << "\r ";
-	for (int i = 0; i < 26; i++) {
-		cout << char(219);
-		//Sleep(500);
-	}
-	cout << "\n\n\    Done\n";
-}*/
+
