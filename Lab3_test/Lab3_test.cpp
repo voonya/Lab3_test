@@ -7,8 +7,9 @@
 
 
 #define fs filesystem
-#define SIZE_OF_TABLE 2500 //2500
-const auto n = 100000;
+#define SIZE_OF_TABLE 2500 
+
+
 using namespace std;
 
 
